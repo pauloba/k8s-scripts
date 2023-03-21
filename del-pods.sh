@@ -10,15 +10,17 @@ show_menu(){
     bgred=`echo "\033[41m"`
     fgred=`echo "\033[31m"`
     printf "\n${menu}*********************************************${normal}\n"
-    printf "${menu}**${number} 0)${menu} Delete CrashLoopBackOff pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 1)${menu} Delete Completed pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 2)${menu} Delete Error pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 3)${menu} Delete ErrImagePull pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 4)${menu} Delete ImagePullBackOff pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 5)${menu} Delete NodeAffinity pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 6)${menu} Delete NodeShutdown pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 7)${menu} Delete Pending pods from all namespaces ${normal}\n"
-    printf "${menu}**${number} 8)${menu} Delete Terminated pods from all namespaces ${normal}\n"
+    printf "\n${menu}DELETE ALL PODS FROM ALL NAMESPACES WITH POD STATUS:${normal}\n"
+    printf "\n${menu}*********************************************${normal}\n"
+    printf "${menu}**${number} 0)${menu} CrashLoopBackOff ${normal}\n"
+    printf "${menu}**${number} 1)${menu} Completed ${normal}\n"
+    printf "${menu}**${number} 2)${menu} Error ${normal}\n"
+    printf "${menu}**${number} 3)${menu} ErrImagePull ${normal}\n"
+    printf "${menu}**${number} 4)${menu} ImagePullBackOff ${normal}\n"
+    printf "${menu}**${number} 5)${menu} NodeAffinity ${normal}\n"
+    printf "${menu}**${number} 6)${menu} NodeShutdown ${normal}\n"
+    printf "${menu}**${number} 7)${menu} Pending ${normal}\n"
+    printf "${menu}**${number} 8)${menu} Terminated ${normal}\n"
     printf "${menu}*********************************************${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
@@ -34,8 +36,8 @@ option_picked(){
 del_pod(){
     for ns in $NAMESPACES
       do 
-        kubectl -n $ns get po | grep $POD_STATUS | awk '{print $1}' | xargs kubectl -n $ns delete pod
-      done
+        kubectl -n $ns get po | grep $POD_STATUS | awk '{print $1}' | xargs kubectl -n $ns delete pod  >> delpods.log 2>&1
+     done
 }
 
 clear
