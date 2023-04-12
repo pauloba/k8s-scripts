@@ -22,6 +22,7 @@ show_menu(){
     printf "${menu}**${number} 7)${menu} Pending ${normal}\n"
     printf "${menu}**${number} 8)${menu} Terminated ${normal}\n"
     printf "${menu}*********************************************${normal}\n"
+    printf "${menu}**${number} 9)${menu}  DELETE ALL ReplicaSets FROM ALL NAMESPACES WITH DESIRED PODs=0 ${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
 }
@@ -38,6 +39,13 @@ del_pod(){
       do 
         kubectl -n $ns get po | grep $POD_STATUS | awk '{print $1}' | xargs kubectl -n $ns delete pod  >> delpods.log 2>&1
      done
+}
+
+del_rs(){
+    for ns in $NAMESPACES
+      do 
+      kubectl -n $ns get rs | grep 0 | awk '{print $1}' | xargs kubectl -n $ns delete rs >> delrs.log 2>&1
+      done
 }
 
 clear
@@ -109,6 +117,12 @@ while [ $opt != '' ]
            NAMESPACES=$(kubectl get namespace | awk '{print $1}' | tail -n +2)
            POD_STATUS="Terminated"
            del_pod;
+           show_menu;
+        ;;
+        9) clear;
+           option_picked "About to delete all ReplicaSets from all ns with DESIRED PODS=0";
+           NAMESPACES=$(kubectl get namespace | awk '{print $1}' | tail -n +2)
+           del_rs;
            show_menu;
         ;;
         x)exit;
