@@ -21,8 +21,9 @@ show_menu(){
     printf "${menu}**${number} 6)${menu} NodeShutdown ${normal}\n"
     printf "${menu}**${number} 7)${menu} Pending ${normal}\n"
     printf "${menu}**${number} 8)${menu} Terminated ${normal}\n"
+    printf "${menu}**${number} 9)${menu} ContainerStatusUnknown ${normal}\n"
     printf "${menu}*********************************************${normal}\n"
-    printf "${menu}**${number} 9)${menu}  DELETE ALL ReplicaSets FROM ALL NAMESPACES WITH DESIRED PODs=0 ${normal}\n"
+    printf "${menu}**${number} 10)${menu}  DELETE ALL ReplicaSets FROM ALL NAMESPACES WITH DESIRED PODs=0 ${normal}\n"
     printf "Please enter a menu option and enter or ${fgred}x to exit. ${normal}"
     read opt
 }
@@ -120,6 +121,13 @@ while [ $opt != '' ]
            show_menu;
         ;;
         9) clear;
+           option_picked "About to delete ContainerStatusUnknown pods from all ns";
+           NAMESPACES=$(kubectl get namespace | awk '{print $1}' | tail -n +2)
+           POD_STATUS="ContainerStatusUnknown"
+           del_pod;
+           show_menu;
+        ;;      
+        10) clear;
            option_picked "About to delete all ReplicaSets from all ns with DESIRED PODS=0";
            NAMESPACES=$(kubectl get namespace | awk '{print $1}' | tail -n +2)
            del_rs;
