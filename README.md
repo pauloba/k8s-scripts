@@ -1,5 +1,5 @@
 
-## Purpose of the script
+## Purpose of the script del-pods.sh
 Simple script to cleanup forgotten/orphaned/error-ed pods.
 
 You need to troubleshoot and fix the error first, once you do you may end up with a ton of pods across several namespaces that can be deleted running the script on this repo.
