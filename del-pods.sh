@@ -36,16 +36,18 @@ option_picked(){
 }
 
 del_pod(){
+    echo "$current_date" >> deleted.log
     for ns in $NAMESPACES
       do 
-        kubectl -n $ns get po | grep $POD_STATUS | awk '{print $1}' | xargs kubectl -n $ns delete pod  >> delpods.log 2>&1
+        kubectl -n $ns get po | grep $POD_STATUS | awk '{print $1}' | xargs kubectl -n $ns delete pod  >> deleted.log 2>&1
      done
 }
 
 del_rs(){
+    echo "$current_date" >> deleted.log
     for ns in $NAMESPACES
       do 
-      kubectl -n $ns get rs | grep 0 | awk '{print $1}' | xargs kubectl -n $ns delete rs >> delrs.log 2>&1
+      kubectl -n $ns get rs | grep 0 | awk '{print $1}' | xargs kubectl -n $ns delete rs >> deleted.log 2>&1
       done
 }
 
@@ -56,6 +58,7 @@ while [ $opt != '' ]
     if [ $opt = '' ]; then
       exit;
     else
+      current_date=$(date +"%Y-%m-%d %H:%M:%S")
       case $opt in
         0) clear;
            option_picked "About to delete CrashLoopBackOff pods from all ns";
