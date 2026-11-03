@@ -1,5 +1,20 @@
 
 ## Purpose of the script del-pods.sh
+
+```text
+ __________________________________________________________________________________________
+' Terminator                                                                          [ x ]'
+|------------------------------------------------------------------------------------------|
+|| kubernoia@minitrue:~$ kubectl get pods -n cp4mcm-cloud-native-monitoring               ||
+|| NAME                                   READY   STATUS              RESTARTS   AGE      ||
+|| monitoring-operator-6c58fd8fc4-2gxq7   0/1     ImagePullBackOff    0          3m55s    ||
+||                                                                                        ||
+||                                                                                        ||
+||                                                                                        ||
+||                                                                                        ||
+||________________________________________________________________________________________||
+```
+
 Simple script to cleanup forgotten/orphaned/error-ed pods.
 
 You need to troubleshoot and fix the error first, once you do you may end up with a ton of pods across several namespaces that can be deleted running the script on this repo.
