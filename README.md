@@ -5,7 +5,7 @@
  __________________________________________________________________________________________
 ' Terminator                                                                          [ x ]'
 |------------------------------------------------------------------------------------------|
-|| kubernoia@minitrue:~$ kubectl get pods -n cp4mcm-cloud-native-monitoring               ||
+|| kubernoia@minitrue:~$ kubectl get pods -n monitoring                                   ||
 || NAME                                   READY   STATUS              RESTARTS   AGE      ||
 || monitoring-operator-6c58fd8fc4-2gxq7   0/1     ImagePullBackOff    0          3m55s    ||
 ||                                                                                        ||
